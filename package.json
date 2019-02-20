@@ -6,10 +6,8 @@
   "scripts": {
     "beforeinstall": "npx check-engine",
     "postinstall": "cp -v ./git-hooks/* .git/hooks/",
-    "start": "run-p start:*",
-    "start:server": "node --experimental-modules server.mjs",
-    "start:sensor": "cd sensor && ./wc-door.py",
-    "dev": "npx nodemon --ignore '*-dump.json' --ignore 'sensor' --exec 'npm run start:server --silent'",
+    "start": "node --experimental-modules server.mjs",
+    "dev": "npx chokidar --silent --initial --ignore node_modules/ --ignore .git . --command 'NODE_ENV=development npm start'",
     "test": "npm-run-all lint",
     "lint": "eslint --ignore-path .gitignore --ext .js --ext .mjs .",
     "lint-fix": "npm run lint -- --fix",
@@ -40,6 +38,7 @@
     "express": "^4.16.4",
     "greenlock-express": "^2.6.7",
     "npm-run-all": "^4.1.5",
+    "rpi-gpio": "^2.1.3",
     "web-push": "^3.3.3"
   },
   "devDependencies": {
